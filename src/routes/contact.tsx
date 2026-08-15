@@ -24,7 +24,7 @@ function ContactPage() {
     { icon: MapPin, label: "العنوان", value: siteConfig.address },
     { icon: Phone, label: "الهاتف", value: siteConfig.phone },
     { icon: Mail, label: "البريد الإلكتروني", value: siteConfig.email },
-    { icon: Clock, label: "مواعيد العمل", value: siteConfig.hours },
+    ...siteConfig.hours.map((h) => ({ icon: Clock, label: h.days, value: h.time })),
   ];
 
   return (

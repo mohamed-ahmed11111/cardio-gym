@@ -48,7 +48,7 @@ function TrainerDetailsPage() {
         />
         <div>
           <span className="rounded-full border border-accent/40 bg-accent-soft px-3 py-1 text-xs font-bold text-accent">
-            {trainer.role}
+            {trainer.title}
           </span>
           <h1 className="mt-3 text-3xl sm:text-4xl">{trainer.name}</h1>
           <p className="mt-1 text-sm text-muted-foreground">{trainer.experienceYears}+ سنوات خبرة</p>
