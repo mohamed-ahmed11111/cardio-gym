@@ -22,7 +22,7 @@ export const Route = createFileRoute("/contact")({
 function ContactPage() {
   const items = [
     { icon: MapPin, label: "العنوان", value: siteConfig.address },
-    { icon: Phone, label: "الهاتف", value: siteConfig.phoneDisplay },
+    { icon: Phone, label: "الهاتف", value: siteConfig.phone },
     { icon: Mail, label: "البريد الإلكتروني", value: siteConfig.email },
     { icon: Clock, label: "مواعيد العمل", value: siteConfig.hours },
   ];
@@ -50,7 +50,7 @@ function ContactPage() {
               </a>
             </Button>
             <Button asChild variant="surface" size="lg">
-              <a href={telLink()}>اتصل بنا</a>
+              <a href={telLink}>اتصل بنا</a>
             </Button>
           </div>
         </div>

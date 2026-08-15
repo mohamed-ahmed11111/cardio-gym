@@ -5,7 +5,7 @@ import { CTASection } from "@/components/sections/CTASection";
 import { Reveal } from "@/components/ui-custom/Reveal";
 import { ScheduleCard } from "@/components/ui-custom/ScheduleCard";
 import { EmptyState } from "@/components/ui-custom/EmptyState";
-import { weekDays, sessionsForDay, todayName } from "@/data/schedule";
+import { days, sessionsForDay, todayName } from "@/data/schedule";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
 
@@ -32,7 +32,7 @@ function SchedulePage() {
       <PageHeader eyebrow="المواعيد" title="جدول الحصص الأسبوعي" description="اختر اليوم لعرض الحصص المتاحة والمدرب المسؤول." />
       <section className="container-page py-12">
         <div className="mb-8 flex gap-2 overflow-x-auto pb-2" role="tablist" aria-label="أيام الأسبوع">
-          {weekDays.map((d) => (
+          {days.map((d: string) => (
             <button
               key={d}
               type="button"
