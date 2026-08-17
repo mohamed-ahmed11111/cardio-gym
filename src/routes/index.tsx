@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Hero } from "@/components/sections/Hero";
+import { QuickNav } from "@/components/sections/QuickNav";
 import { CTASection } from "@/components/sections/CTASection";
 import { PlansSection } from "@/components/sections/PlansSection";
 import { SectionHeading } from "@/components/ui-custom/SectionHeading";
@@ -53,6 +54,8 @@ function HomePage() {
           <StatCounter key={s.id} value={s.value} suffix={s.suffix} label={s.label} />
         ))}
       </section>
+
+      <QuickNav />
 
       <section className="container-page py-16">
         <SectionHeading
