@@ -3,7 +3,7 @@
  * Never place secrets here — this file ships to the browser.
  * Values can be overridden per-environment with VITE_* variables.
  */
-const env = import.meta.env as Record<string, string | undefined>;
+import { buildWhatsappLink, gymConfig, gymTelLink } from "./gym";
 
 export const siteConfig = {
   name: "TITAN GYM",
@@ -12,9 +12,9 @@ export const siteConfig = {
   city: "بني سويف",
   description:
     "جيم تايتن في بني سويف — تدريب احترافي، أحدث الأجهزة، مدربون معتمدون، وبرامج تغذية مخصصة لكل هدف.",
-  phone: env["VITE_GYM_PHONE"] ?? "+201012345678",
-  whatsapp: env["VITE_GYM_WHATSAPP"] ?? "+201012345678",
-  email: env["VITE_GYM_EMAIL"] ?? "info@titangym.eg",
+  phone: gymConfig.phone,
+  whatsapp: gymConfig.phone,
+  email: gymConfig.email,
   address: "شارع الجمهورية، أمام حديقة الشهيد، بني سويف، مصر",
   mapsUrl: "https://www.google.com/maps?q=Beni+Suef+Egypt",
   mapsEmbedUrl:
@@ -31,12 +31,11 @@ export const siteConfig = {
   ],
 } as const;
 
-/** Digits-only number for wa.me links. */
-export const whatsappDigits = siteConfig.whatsapp.replace(/\D/g, "");
+/** Digits-only number for wa.me links (centralised in src/config/gym.ts). */
+export const whatsappDigits = gymConfig.whatsappNumber;
 
 export function whatsappLink(message?: string): string {
-  const text = message ?? `السلام عليكم، أرغب في معرفة تفاصيل الاشتراك في ${siteConfig.nameAr}.`;
-  return `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(text)}`;
+  return buildWhatsappLink(message);
 }
 
-export const telLink = `tel:${siteConfig.phone}`;
+export const telLink = gymTelLink;
