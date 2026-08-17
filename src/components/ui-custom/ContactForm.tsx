@@ -8,7 +8,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { memberships } from "@/data/memberships";
 import { whatsappLink } from "@/config/site";
 
-const goals = ["بناء العضلات", "خسارة الوزن", "اللياقة", "تدريب شخصي", "أخرى"] as const;
+const goals = ["بناء العضلات", "خسارة الوزن", "اللياقة البدنية", "تدريب شخصي", "أخرى"] as const;
+const NO_PLAN = "";
 
 interface FormState {
   name: string;
@@ -21,20 +22,20 @@ interface FormState {
 const initialState: FormState = {
   name: "",
   phone: "",
-  goal: goals[0],
-  plan: memberships[1]!.name,
+  goal: "",
+  plan: NO_PLAN,
   message: "",
 };
 
 function buildMessage(form: FormState): string {
   const lines = [
-    `السلام عليكم، أنا ${form.name || "أحد المهتمين"} وأرغب في الاشتراك في الجيم.`,
-    `هدفي: ${form.goal}`,
-    `الباقة: ${form.plan}`,
+    "السلام عليكم، أرغب في الاشتراك في الجيم.",
+    `الاسم: ${form.name.trim()}`,
+    `رقم الهاتف: ${form.phone.trim()}`,
+    `الهدف من التدريب: ${form.goal}`,
   ];
-  if (form.phone) lines.push(`رقمي: ${form.phone}`);
-  if (form.message.trim()) lines.push(`ملاحظات: ${form.message.trim()}`);
-  lines.push("وأرغب في معرفة التفاصيل.");
+  if (form.plan) lines.push(`الباقة المفضلة: ${form.plan}`);
+  if (form.message.trim()) lines.push(`الرسالة: ${form.message.trim()}`);
   return lines.join("\n");
 }
 
@@ -47,11 +48,15 @@ export function ContactForm() {
 
   const validate = (): boolean => {
     if (form.name.trim().length < 3) {
-      toast.error("من فضلك اكتب اسمك بشكل صحيح.");
+      toast.error("من فضلك أدخل اسمك.");
       return false;
     }
     if (!/^[0-9+\s-]{9,15}$/.test(form.phone.trim())) {
-      toast.error("من فضلك اكتب رقم هاتف صحيح.");
+      toast.error("من فضلك أدخل رقم هاتف صحيح.");
+      return false;
+    }
+    if (!form.goal) {
+      toast.error("من فضلك اختر هدفك من التدريب.");
       return false;
     }
     return true;
@@ -61,11 +66,11 @@ export function ContactForm() {
     e.preventDefault();
     if (!validate()) return;
     setSubmitting(true);
-    // هذا موقع أمامي فقط (بدون قاعدة بيانات): نجهّز الطلب ليُرسل عبر واتساب.
-    window.setTimeout(() => {
-      setSubmitting(false);
-      toast.success("تم تجهيز طلبك — اضغط زر واتساب لإرساله للفريق مباشرة.");
-    }, 700);
+    // موقع أمامي فقط (بدون قاعدة بيانات): الطلب يُرسل مباشرة عبر واتساب.
+    const url = whatsappLink(buildMessage(form));
+    window.open(url, "_blank", "noopener,noreferrer");
+    setSubmitting(false);
+    toast.success("تم تجهيز رسالتك وفتح واتساب — اضغط إرسال ليصلنا طلبك.");
   };
 
   return (
