@@ -21,7 +21,9 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as TestimonialsRouteImport } from './routes/testimonials'
 import { Route as TrainersRouteImport } from './routes/trainers'
 import { Route as TransformationsRouteImport } from './routes/transformations'
+import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesServiceIdRouteImport } from './routes/services.$serviceId'
+import { Route as TrainersIndexRouteImport } from './routes/trainers.index'
 import { Route as TrainersTrainerIdRouteImport } from './routes/trainers.$trainerId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -84,10 +86,20 @@ const TransformationsRoute = TransformationsRouteImport.update({
   path: '/transformations',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesIndexRoute = ServicesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ServicesRoute,
+} as any)
 const ServicesServiceIdRoute = ServicesServiceIdRouteImport.update({
   id: '/$serviceId',
   path: '/$serviceId',
   getParentRoute: () => ServicesRoute,
+} as any)
+const TrainersIndexRoute = TrainersIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TrainersRoute,
 } as any)
 const TrainersTrainerIdRoute = TrainersTrainerIdRouteImport.update({
   id: '/$trainerId',
@@ -110,6 +122,8 @@ export interface FileRoutesByFullPath {
   '/transformations': typeof TransformationsRoute
   '/services/$serviceId': typeof ServicesServiceIdRoute
   '/trainers/$trainerId': typeof TrainersTrainerIdRoute
+  '/services/': typeof ServicesIndexRoute
+  '/trainers/': typeof TrainersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -120,12 +134,12 @@ export interface FileRoutesByTo {
   '/memberships': typeof MembershipsRoute
   '/offers': typeof OffersRoute
   '/schedule': typeof ScheduleRoute
-  '/services': typeof ServicesRouteWithChildren
   '/testimonials': typeof TestimonialsRoute
-  '/trainers': typeof TrainersRouteWithChildren
   '/transformations': typeof TransformationsRoute
   '/services/$serviceId': typeof ServicesServiceIdRoute
   '/trainers/$trainerId': typeof TrainersTrainerIdRoute
+  '/services': typeof ServicesIndexRoute
+  '/trainers': typeof TrainersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -143,6 +157,8 @@ export interface FileRoutesById {
   '/transformations': typeof TransformationsRoute
   '/services/$serviceId': typeof ServicesServiceIdRoute
   '/trainers/$trainerId': typeof TrainersTrainerIdRoute
+  '/services/': typeof ServicesIndexRoute
+  '/trainers/': typeof TrainersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -161,6 +177,8 @@ export interface FileRouteTypes {
     | '/transformations'
     | '/services/$serviceId'
     | '/trainers/$trainerId'
+    | '/services/'
+    | '/trainers/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -171,12 +189,12 @@ export interface FileRouteTypes {
     | '/memberships'
     | '/offers'
     | '/schedule'
-    | '/services'
     | '/testimonials'
-    | '/trainers'
     | '/transformations'
     | '/services/$serviceId'
     | '/trainers/$trainerId'
+    | '/services'
+    | '/trainers'
   id:
     | '__root__'
     | '/'
@@ -193,6 +211,8 @@ export interface FileRouteTypes {
     | '/transformations'
     | '/services/$serviceId'
     | '/trainers/$trainerId'
+    | '/services/'
+    | '/trainers/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -296,12 +316,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TransformationsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services/': {
+      id: '/services/'
+      path: '/'
+      fullPath: '/services/'
+      preLoaderRoute: typeof ServicesIndexRouteImport
+      parentRoute: typeof ServicesRoute
+    }
     '/services/$serviceId': {
       id: '/services/$serviceId'
       path: '/$serviceId'
       fullPath: '/services/$serviceId'
       preLoaderRoute: typeof ServicesServiceIdRouteImport
       parentRoute: typeof ServicesRoute
+    }
+    '/trainers/': {
+      id: '/trainers/'
+      path: '/'
+      fullPath: '/trainers/'
+      preLoaderRoute: typeof TrainersIndexRouteImport
+      parentRoute: typeof TrainersRoute
     }
     '/trainers/$trainerId': {
       id: '/trainers/$trainerId'
@@ -315,10 +349,12 @@ declare module '@tanstack/react-router' {
 
 interface ServicesRouteChildren {
   ServicesServiceIdRoute: typeof ServicesServiceIdRoute
+  ServicesIndexRoute: typeof ServicesIndexRoute
 }
 
 const ServicesRouteChildren: ServicesRouteChildren = {
   ServicesServiceIdRoute: ServicesServiceIdRoute,
+  ServicesIndexRoute: ServicesIndexRoute,
 }
 
 const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
@@ -327,10 +363,12 @@ const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
 
 interface TrainersRouteChildren {
   TrainersTrainerIdRoute: typeof TrainersTrainerIdRoute
+  TrainersIndexRoute: typeof TrainersIndexRoute
 }
 
 const TrainersRouteChildren: TrainersRouteChildren = {
   TrainersTrainerIdRoute: TrainersTrainerIdRoute,
+  TrainersIndexRoute: TrainersIndexRoute,
 }
 
 const TrainersRouteWithChildren = TrainersRoute._addFileChildren(
