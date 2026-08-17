@@ -77,7 +77,7 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-4" noValidate>
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-1.5">
-          <Label htmlFor="name">الاسم</Label>
+          <Label htmlFor="name">الاسم *</Label>
           <Input
             id="name"
             name="name"
@@ -89,7 +89,7 @@ export function ContactForm() {
           />
         </div>
         <div className="space-y-1.5">
-          <Label htmlFor="phone">رقم الهاتف</Label>
+          <Label htmlFor="phone">رقم الهاتف *</Label>
           <Input
             id="phone"
             name="phone"
@@ -104,14 +104,16 @@ export function ContactForm() {
           />
         </div>
         <div className="space-y-1.5">
-          <Label htmlFor="goal">الهدف من التدريب</Label>
+          <Label htmlFor="goal">الهدف من التدريب *</Label>
           <select
             id="goal"
             name="goal"
+            required
             value={form.goal}
             onChange={(e) => update("goal", e.target.value)}
             className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
           >
+            <option value="">اختر هدفك</option>
             {goals.map((g) => (
               <option key={g} value={g}>
                 {g}
@@ -120,7 +122,7 @@ export function ContactForm() {
           </select>
         </div>
         <div className="space-y-1.5">
-          <Label htmlFor="plan">الباقة المفضلة</Label>
+          <Label htmlFor="plan">الباقة المفضلة (اختياري)</Label>
           <select
             id="plan"
             name="plan"
@@ -128,6 +130,7 @@ export function ContactForm() {
             onChange={(e) => update("plan", e.target.value)}
             className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
           >
+            <option value="">بدون تحديد</option>
             {memberships.map((m) => (
               <option key={m.id} value={m.name}>
                 {m.nameAr} ({m.name})
@@ -138,7 +141,7 @@ export function ContactForm() {
       </div>
 
       <div className="space-y-1.5">
-        <Label htmlFor="message">الرسالة</Label>
+        <Label htmlFor="message">الرسالة (اختياري)</Label>
         <Textarea
           id="message"
           name="message"
