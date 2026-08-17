@@ -1,12 +1,10 @@
 import type { Offer } from "@/types";
 
-/** Offer expiry dates are relative so the countdown always stays alive in the demo. */
-function inDays(days: number): string {
-  const d = new Date();
-  d.setDate(d.getDate() + days);
-  d.setHours(23, 59, 0, 0);
-  return d.toISOString();
-}
+/**
+ * Offer expiry dates are FIXED ISO timestamps on purpose: computing them from
+ * `new Date()` at module scope produces different values on the server and in
+ * the browser, which causes hydration mismatches.
+ */
 
 export const offers: Offer[] = [
   {
@@ -17,7 +15,7 @@ export const offers: Offer[] = [
       "اشترك في الباقة الاحترافية لمدة 3 شهور واحصل على خصم 40% مع جلسة تحليل تركيب الجسم مجانًا.",
     oldPrice: 1950,
     newPrice: 1170,
-    expiresAt: inDays(12),
+    expiresAt: "2026-12-31T21:59:00.000Z",
     featured: true,
     badge: "الأكثر طلبًا",
   },
@@ -28,7 +26,7 @@ export const offers: Offer[] = [
     description: "خصم خاص لطلاب الجامعات عند إثبات الكارنيه — صالح على الباقة الأساسية والاحترافية.",
     oldPrice: 650,
     newPrice: 455,
-    expiresAt: inDays(25),
+    expiresAt: "2027-01-15T21:59:00.000Z",
   },
   {
     id: "duo",
@@ -37,7 +35,7 @@ export const offers: Offer[] = [
     description: "سجّل مع صديقك في نفس اليوم واحصل على نصف قيمة اشتراكه الأول.",
     oldPrice: 1300,
     newPrice: 975,
-    expiresAt: inDays(18),
+    expiresAt: "2027-01-08T21:59:00.000Z",
   },
   {
     id: "ladies",
@@ -46,7 +44,7 @@ export const offers: Offer[] = [
     description: "عند الاشتراك 3 شهور في قاعة السيدات تحصلين على شهر رابع مجانًا مع حصص جماعية.",
     oldPrice: 1755,
     newPrice: 1755,
-    expiresAt: inDays(30),
+    expiresAt: "2027-01-31T21:59:00.000Z",
   },
   {
     id: "personal",
@@ -55,7 +53,7 @@ export const offers: Offer[] = [
     description: "12 جلسة تدريب شخصي مع خطة تغذية مخصصة بخصم 20% عند الدفع مقدمًا.",
     oldPrice: 3000,
     newPrice: 2400,
-    expiresAt: inDays(9),
+    expiresAt: "2026-12-20T21:59:00.000Z",
   },
 ];
 

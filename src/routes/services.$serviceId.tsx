@@ -1,6 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BackButton } from "@/components/ui-custom/BackButton";
+import { Breadcrumbs } from "@/components/ui-custom/Breadcrumbs";
 import { CTASection } from "@/components/sections/CTASection";
 import { getServiceById } from "@/data/services";
 import { whatsappLink, siteConfig } from "@/config/site";
@@ -27,9 +29,14 @@ export const Route = createFileRoute("/services/$serviceId")({
     <div className="container-page py-24 text-center">
       <h1 className="text-2xl">عذرًا، هذه الخدمة غير موجودة.</h1>
       <p className="mt-2 text-sm text-muted-foreground">ربما تم تغيير اسم البرنامج أو الرابط غير صحيح.</p>
-      <Button asChild variant="hero" size="lg" className="mt-6">
-        <Link to="/services">كل الخدمات</Link>
-      </Button>
+      <div className="mt-6 flex flex-wrap justify-center gap-3">
+        <Button asChild variant="hero" size="lg">
+          <Link to="/services">← العودة إلى الخدمات</Link>
+        </Button>
+        <Button asChild variant="surface" size="lg">
+          <Link to="/">الرئيسية</Link>
+        </Button>
+      </div>
     </div>
   ),
 });
@@ -39,6 +46,10 @@ function ServiceDetailsPage() {
 
   return (
     <>
+      <div className="container-page flex flex-wrap items-center gap-3 pt-6">
+        <BackButton />
+        <Breadcrumbs items={[{ label: "الخدمات", to: "/services" }, { label: service.title }]} />
+      </div>
       <section className="relative h-64 overflow-hidden sm:h-80">
         <img src={service.image} alt={service.title} width={1200} height={900} className="size-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30" />

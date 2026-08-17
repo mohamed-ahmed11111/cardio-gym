@@ -16,6 +16,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { FloatingActions } from "@/components/layout/FloatingActions";
 import { Toaster } from "@/components/ui/sonner";
+import { ClientSecurityGuard } from "@/components/security/ClientSecurityGuard";
 import { siteConfig } from "@/config/site";
 
 function NotFoundComponent() {
@@ -151,6 +152,7 @@ function RootComponent() {
           <Footer />
           <FloatingActions />
           <Toaster position="top-center" />
+          <ClientSecurityGuard />
         </div>
       </LocaleProvider>
     </QueryClientProvider>
