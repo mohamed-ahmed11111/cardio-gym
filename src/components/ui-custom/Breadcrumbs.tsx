@@ -28,7 +28,11 @@ export function Breadcrumbs({ items, className }: { items: Crumb[]; className?: 
                   {c.label}
                 </span>
               ) : (
-                <Link to={c.to} params={c.params} className="transition-colors hover:text-accent">
+                <Link
+                  to={c.to}
+                  {...(c.params ? { params: c.params } : {})}
+                  className="transition-colors hover:text-accent"
+                >
                   {c.label}
                 </Link>
               )}
