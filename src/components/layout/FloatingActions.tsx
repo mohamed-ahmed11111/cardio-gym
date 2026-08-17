@@ -36,7 +36,7 @@ export function FloatingActions() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="تواصل معنا على واتساب"
-        className="inline-flex size-14 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-glow transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="relative inline-flex size-14 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-glow transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-safe:animate-[pulse_2.6s_ease-in-out_infinite]"
       >
         <MessageCircle aria-hidden="true" className="size-6" />
       </a>
