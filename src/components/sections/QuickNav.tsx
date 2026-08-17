@@ -13,6 +13,7 @@ import {
   Wallet,
 } from "lucide-react";
 import { Reveal } from "@/components/ui-custom/Reveal";
+import { whatsappLink } from "@/config/site";
 
 const links = [
   { to: "/offers", label: "العروض", icon: Tag },
@@ -51,7 +52,7 @@ export function QuickNav() {
       </Reveal>
       <div className="mt-5 flex justify-center">
         <a
-          href="https://wa.me/201271357602"
+          href={whatsappLink()}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-accent px-5 py-2.5 text-sm font-bold text-accent-foreground transition-transform hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
